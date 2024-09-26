@@ -12,5 +12,7 @@ return {
     -- sd' - Surround delete Quotes
     -- sr)' - Surround Replace ) -> '
     require("mini.surround").setup()
+
+    require("mini.pairs").setup()
   end
 }

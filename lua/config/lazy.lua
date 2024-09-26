@@ -22,5 +22,14 @@ require("lazy").setup({
 		-- import your plugins
 		{ import = "plugins" },
 	},
-	checker = { enabled = true },
+  change_detection = { notify = false },
+	checker = { enabled = true, notify = false },
+  ui = {
+    border = "rounded",
+    size = {
+      width = 0.8,
+      height = 0.8,
+    },
+    backdrop = 100,
+  }
 })

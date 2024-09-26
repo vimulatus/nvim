@@ -1,47 +1,54 @@
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+-- Clear highlights on search when pressing <Esc> in normal mode
+vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
--- Make line numbers default
-vim.opt.number = true
-vim.opt.relativenumber = true
+-- Exit terminal mode in the builtin terminal with <Esc><Esc>
+vim.keymap.set("t", "<Esc><Esc>", "<C-//><C-n>", { desc = "Exit terminal mode" })
 
--- Sync clipboard between OS and neovim
-vim.opt.clipboard = "unnamedplus"
+-- Disable arrow keys in normal mode
+vim.keymap.set("n", "<left>", "<cmd>echo 'Use h to move!!'<CR>")
+vim.keymap.set("n", "<right>", "<cmd>echo 'Use l to move!!'<CR>")
+vim.keymap.set("n", "<down>", "<cmd>echo 'Use j to move!!'<CR>")
+vim.keymap.set("n", "<up>", "<cmd>echo 'Use k to move!!'<CR>")
 
--- Save undo history
-vim.opt.undofile = true
+-- Highlight when yanking
+vim.api.nvim_create_autocmd("TextYankPost", {
+  desc = "Highlight when yanking (copying) text",
+  group = vim.api.nvim_create_augroup("Kickstart-highlight-yank", {
+    clear = true,
+  }),
+  callback = function()
+    vim.highlight.on_yank()
+  end,
+})
 
--- Case-insensitive search
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
-vim.opt.expandtab = true
+-- Diagnostic keymaps
+vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
 
--- Set indent width
-vim.opt.shiftwidth = 2
-vim.opt.tabstop = 2
-vim.opt.softtabstop = 2
-vim.opt.expandtab = true
+-- Move lines when highlighted
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
--- Enable Signcolumn
-vim.opt.signcolumn = 'yes'
+vim.keymap.set("n", "J", "mzJ`z")
+vim.keymap.set("n", "<C-d>", "<C-d>zz")
+vim.keymap.set("n", "<C-u>", "<C-u>zz")
 
--- Decrease update time
-vim.opt.updatetime = 250
+vim.keymap.set("x", "<leader>p", "\"_dP")
 
--- Decrease mapped sequence wait time
-vim.opt.timeoutlen = 300
+vim.keymap.set("n", "<leader>r", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
 
--- Configure how neovim displays certain whitespace characters
--- vim.opt.list = true
--- vim.opt.listchars = { tab = "> ", trail ="-", nbsp = "_" }
---
--- Preview substitutions live, as you type
-vim.opt.inccommand = "split"
+vim.keymap.set("n", "<C-q>", "<cmd>qa!<CR>", {})
+vim.keymap.set("n", "<M-q>", "<cmd>qa<CR>", {})
 
--- Show which line your cursor is on
-vim.opt.cursorline = true
-
-vim.opt.scrolloff = 18
-
-
+-- vim.api.nvim_create_autocmd("UiEnter", {
+--   desc = "Show Neotree when Neovim starts",
+--   group = vim.api.nvim_create_augroup("neotree-open", {
+--     clear = true,
+--   }),
+--   callback = function()
+--     require('neo-tree.command').execute({
+--       action = "show",
+--       source = "filesystem",
+--       position = "left",
+--     })
+--   end
+-- })

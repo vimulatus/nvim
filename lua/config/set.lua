@@ -1,27 +1,56 @@
--- Clear highlights on search when pressing <Esc> in normal mode
-vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, { desc = "Open netrw"})
 
--- Exit terminal mode in the builtin terminal with <Esc><Esc>
-vim.keymap.set("t", "<Esc><Esc>", "<C-//><C-n>", { desc = "Exit terminal mode" })
+-- Make line numbers default
+vim.opt.number = true
+vim.opt.relativenumber = true
 
--- Disable arrow keys in normal mode
-vim.keymap.set("n", "<left>", "<cmd>echo 'Use h to move!!'<CR>")
-vim.keymap.set("n", "<right>", "<cmd>echo 'Use l to move!!'<CR>")
-vim.keymap.set("n", "<down>", "<cmd>echo 'Use j to move!!'<CR>")
-vim.keymap.set("n", "<up>", "<cmd>echo 'Use k to move!!'<CR>")
+-- Sync clipboard between OS and neovim
+vim.opt.clipboard = "unnamedplus"
 
--- Highlight when yanking
-vim.api.nvim_create_autocmd("TextYankPost", {
-  desc = "Highlight when yanking (copying) text",
-  group = vim.api.nvim_create_augroup("Kickstart-highlight-yank", {
-    clear = true
-  }),
-  callback = function()
-    vim.highlight.on_yank()
-  end,
-})
+-- Save undo history
+vim.opt.undofile = true
 
--- Diagnostic keymaps
-vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
+-- Sync keyboard between OS and Neovim
+-- Schedule after "UiEnter" to improve performance
+vim.schedule(function()
+  vim.opt.clipboard = "unnamedplus"
+end)
 
+-- Don't show the mode, since it's already in the status line
+vim.opt.showmode = false
 
+-- Case-insensitive search
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+vim.opt.expandtab = true
+
+-- Set indent width
+vim.opt.shiftwidth = 2
+vim.opt.tabstop = 2
+vim.opt.softtabstop = 2
+vim.opt.expandtab = true
+
+-- Enable Signcolumn
+vim.opt.signcolumn = 'yes'
+
+-- Decrease update time
+vim.opt.updatetime = 250
+
+-- Decrease mapped sequence wait time
+vim.opt.timeoutlen = 300
+
+-- Configure how neovim displays certain whitespace characters
+-- vim.opt.list = true
+-- vim.opt.listchars = { tab = "> ", trail ="-", nbsp = "_" }
+--
+-- Preview substitutions live, as you type
+vim.opt.inccommand = "split"
+
+-- Show which line your cursor is on
+vim.opt.cursorline = true
+
+vim.opt.scrolloff = 10
+
+vim.opt.termguicolors = true
