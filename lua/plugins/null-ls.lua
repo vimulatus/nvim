@@ -12,8 +12,6 @@ return {
         null_ls.builtins.formatting.biome,
         null_ls.builtins.formatting.yamlfmt,
         null_ls.builtins.formatting.rustywind,
-        null_ls.builtins.diagnostics.markdownlint,
-        null_ls.builtins.diagnostics.markuplint,
       },
     })
 
